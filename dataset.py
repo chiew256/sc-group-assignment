@@ -15,8 +15,7 @@ class HandwritingDataset:
         for m in member:
             for char in os.listdir(join(root, m)):
                 ls = sorted(os.listdir(join(root, m, char)))
-                # pls = [x for i, x in enumerate(ls) if i % 9 == 0]
-                pls = ls
+                pls = [x for i, x in enumerate(ls) if i % 9 == 0]
                 path[m][char] = list(map(lambda x: join(root, m, char, x), pls))
 
         print(f"Who are the members? {list(path.keys())}\n")
