@@ -78,7 +78,16 @@ class Trainer:
                 optimizer.step()
 
                 if scheduler:
-                    scheduler.step(loss)
+                    if isinstance(
+                        scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau
+                    ):
+                        scheduler.step(loss)
+                    elif isinstance(
+                        scheduler, torch.optim.lr_scheduler.CosineAnnealingLR
+                    ):
+                        scheduler.step()
+                    else:
+                        scheduler.step()
 
                 train_losses.append(loss.item())
 
