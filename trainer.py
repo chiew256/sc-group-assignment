@@ -2,6 +2,9 @@ import os
 import time
 import torch
 import datetime
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
@@ -17,6 +20,7 @@ class Trainer:
             "train_loader": None,
             "test_loader": None,
             "epochs": 100,
+            "n_evals": 10,
             "device": None,
         },
     ):
@@ -31,12 +35,13 @@ class Trainer:
             config["optimizer"],
             config["scheduler"],
         )
-        train_loader, test_loader, epochs = (
+        train_loader, test_loader, epochs, n_evals = (
             config["train_loader"],
             config["test_loader"],
             config["epochs"],
+            config["n_evals"],
         )
-        device = self.config["device"]
+        device = config["device"]
 
         total_train_data = len(train_loader.dataset)
         total_test_data = len(test_loader.dataset)
@@ -100,9 +105,10 @@ class Trainer:
             elapsed = t2 - t1
             total_time += elapsed
 
-            print(
-                f"Epoch: {i + 1:2d} | train loss: {train_loss:6f} | train accuracy: {train_accuracy:6f} | test loss: {test_loss:6f} | test accuracy: {test_accuracy:6f} | time: {elapsed:6f}"
-            )
+            if i == 0 or (i + 1) % n_evals == 0 or i == epochs - 1:
+                print(
+                    f"Epoch: {i + 1:2d} | train loss: {train_loss:6f} | train accuracy: {train_accuracy:6f} | test loss: {test_loss:6f} | test accuracy: {test_accuracy:6f} | time: {elapsed:6f}"
+                )
 
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         save_path = os.path.join("checkpoints", self.model_type, current_time)
