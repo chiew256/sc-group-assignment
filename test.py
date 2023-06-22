@@ -20,9 +20,21 @@ device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
 
 lr = 3e-4
 epochs = 100
+n_evals = 1
 
-model_type = "resnet50"
-model = get_model(model_type, num_classes=4, channels=1)
+model_type = "vit"
+model_config = {
+    "num_classes": 4,
+    "num_channels": 1,
+    "embed_dim": 256,
+    "hidden_dim": 512,
+    "num_heads": 8,
+    "num_layers": 6,
+    "patch_size": 4,
+    "num_patches": 64,
+    "dropout": 0.2,
+}
+model = get_model(model_type, **model_config)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=0.0001)
@@ -37,7 +49,8 @@ trainer = Trainer(
         "scheduler": scheduler,
         "train_loader": train_loader,
         "test_loader": test_loader,
-        "epochs": epochs,
+        "n_evals": n_evals,
+        "epochs": 1,
         "device": device,
     }
 )
