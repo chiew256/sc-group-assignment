@@ -76,7 +76,9 @@ class Trainer:
                 optimizer.zero_grad(set_to_none=True)
                 loss.backward()
                 optimizer.step()
-                scheduler.step(loss)
+
+                if scheduler:
+                    scheduler.step(loss)
 
                 train_losses.append(loss.item())
 
