@@ -1,6 +1,7 @@
 import os
 import time
 import torch
+import datetime
 import matplotlib.pyplot as plt
 
 
@@ -40,6 +41,7 @@ class Trainer:
         total_train_data = len(train_loader.dataset)
         total_test_data = len(test_loader.dataset)
 
+        self.model.to(device)
         self.model.train()
 
         total_time = 0
@@ -102,7 +104,7 @@ class Trainer:
                 f"Epoch: {i + 1:2d} | train loss: {train_loss:6f} | train accuracy: {train_accuracy:6f} | test loss: {test_loss:6f} | test accuracy: {test_accuracy:6f} | time: {elapsed:6f}"
             )
 
-        current_time = time.time()
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         save_path = os.path.join("checkpoints", self.model_type, current_time)
         os.makedirs(save_path, exist_ok=True)
         torch.save(self.model.state_dict(), save_path)
