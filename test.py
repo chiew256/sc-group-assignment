@@ -19,7 +19,7 @@ test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
 device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
 
 lr = 3e-4
-epochs = 1
+epochs = 100
 
 model_type = "resnet50"
 model = get_model(model_type, num_classes=4, channels=1)

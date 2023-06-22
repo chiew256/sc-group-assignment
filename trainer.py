@@ -107,7 +107,7 @@ class Trainer:
         current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         save_path = os.path.join("checkpoints", self.model_type, current_time)
         os.makedirs(save_path, exist_ok=True)
-        torch.save(self.model.state_dict(), save_path)
+        torch.save(self.model.state_dict(), os.path.join(save_path, "model.pth"))
 
         plt.figure(figsize=(10, 5))
         plt.plot(history["train_accuracy"], label="train")
