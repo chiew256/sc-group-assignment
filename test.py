@@ -19,7 +19,7 @@ test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
 device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
 
 lr = 3e-4
-epochs = 100
+epochs = 1
 n_evals = 1
 
 model_type = "vit"
