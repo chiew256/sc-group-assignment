@@ -45,7 +45,7 @@ class HandwritingDataset:
         self.char = np.array(self.char)
 
         print(
-            f"Constructed members' handwriting dataset for {len(path.keys())} members with total {len(self.char)} characters"
+            f"\nConstructed members' handwriting dataset for {len(path.keys())} members with total {len(self.char)} characters"
         )
 
     def get(self, cls: int, character: str):
@@ -71,6 +71,9 @@ class HandwritingDataset:
                 test_index = self.get(cls_idx, char)[m:-1]
                 train.extend(train_index)
                 test.extend(test_index)
+
+        print(f"\nTrain dataset with stratified split: {len(train)}")
+        print(f"Test dataset with stratified split: {len(test)}\n")
 
         return (self.x[train], self.y[train]), (self.x[test], self.y[test])
         # return (self.char[train], (self.x[train], self.y[train])), (self.char[test], (self.x[test], self.y[test]))
