@@ -143,4 +143,23 @@ class Trainer:
         plt.savefig(os.path.join(save_path, "loss.png"))
 
         print(f"Total time elapsed: {total_time}")
+        self.history = history
         return history
+
+    def plot(self):
+        plt.figure(figsize=(10, 5))
+        plt.subplot(1, 2, 1)
+        plt.plot(self.history["train_accuracy"], label="train")
+        plt.plot(self.history["test_accuracy"], label="test")
+        plt.xlabel("Epoch")
+        plt.ylabel("Accuracy")
+        plt.legend()
+
+        plt.subplot(1, 2, 2)
+        plt.plot(self.history["train_losses"], label="train")
+        plt.plot(self.history["test_losses"], label="test")
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.legend()
+
+        plt.show()
