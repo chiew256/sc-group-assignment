@@ -222,6 +222,6 @@ class Trainer:
         print(f'{"-" * 10}Training Set{"-" * 10}')
         print(f"Loss: {train_loss}")
         print(f"Accuracy: {train_accuracy}")
-        print(f'{"-" * 10}Testing Set{"-" * 10}')
+        print(f'\n{"-" * 10}Testing Set{"-" * 10}')
         print(f"Loss: {test_loss}")
         print(f"Accuracy: {test_accuracy}")
