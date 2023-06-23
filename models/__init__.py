@@ -1,11 +1,11 @@
 from .resnet import ResNet50, ResNet101, ResNet152
-from .vit import vit
+from .vit import VIT
 
 MAP = {
     "resnet50": ResNet50,
     "resnet101": ResNet101,
     "resnet152": ResNet152,
-    "vit": vit,
+    "vit": VIT,
 }
 
 

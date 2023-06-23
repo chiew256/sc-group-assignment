@@ -119,7 +119,7 @@ class VisionTransformer(nn.Module):
         return out
 
 
-def vit(config):
+def VIT(config):
     embed_dim = config["embed_dim"]
     hidden_dim = config["hidden_dim"]
     num_channels = config["num_channels"]
