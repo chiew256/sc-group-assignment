@@ -190,6 +190,9 @@ class Trainer:
         train_losses = list()
         test_losses = list()
 
+        self.model.to(device)
+        self.model.eval()
+
         for x, y in train_loader:
             x, y = x.to(device), y.to(device)
 
@@ -197,6 +200,8 @@ class Trainer:
             loss = criterion(logits, y)
             pred = logits.argmax(dim=-1)
             total_train_correct += (pred == y).sum().item()
+
+            train_losses.append(loss.item())
 
         for x, y in test_loader:
             x, y = x.to(device), y.to(device)
