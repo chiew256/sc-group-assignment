@@ -4,7 +4,7 @@ import torch
 import datetime
 import matplotlib
 
-matplotlib.use("Agg")
+# matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 
@@ -144,7 +144,6 @@ class Trainer:
 
         print(f"Total time elapsed: {total_time}")
         self.history = history
-        return history
 
     def plot(self):
         plt.figure(figsize=(10, 5))
