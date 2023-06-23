@@ -3,11 +3,6 @@ import time
 import torch
 import datetime
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
 
 class Trainer:
     def __init__(
@@ -127,6 +122,11 @@ class Trainer:
         os.makedirs(save_path, exist_ok=True)
         torch.save(self.model.state_dict(), os.path.join(save_path, "model.pth"))
 
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+
         plt.figure(figsize=(10, 5))
         plt.plot(history["train_accuracy"], label="train")
         plt.plot(history["test_accuracy"], label="test")
@@ -147,6 +147,8 @@ class Trainer:
         self.history = history
 
     def plot(self):
+        import matplotlib.pyplot as plt
+
         plt.figure(figsize=(10, 5))
         plt.subplot(1, 2, 1)
         plt.plot(self.history["train_accuracy"], label="train")
