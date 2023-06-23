@@ -57,11 +57,11 @@ class HandwritingDataset:
         idx = cls_index[np.in1d(cls_index, char_index)]
         return idx
 
-    def stratified_split(self, train_size=0.95):
+    def stratified_split(self, size=1.5):
         cls = self.get_cls()
         chars = self.get_chars()
 
-        m = int(len(chars) * train_size)
+        m = int(len(chars) * size)
 
         train = []
         test = []

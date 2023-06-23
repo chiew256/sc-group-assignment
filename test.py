@@ -9,12 +9,15 @@ from models import get_model
 
 dataset = HandwritingDataset()
 train_dataset, test_dataset = dataset.stratified_split()
+
+exit()
 train_dataset, test_dataset = PrepForDataLoader(train_dataset), PrepForDataLoader(
     test_dataset
 )
 
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
+
 
 device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
 
