@@ -165,3 +165,58 @@ class Trainer:
         plt.legend()
 
         plt.show()
+
+    def evaluate(self):
+        config = self.config
+        criterion, optimizer, scheduler = (
+            config["criterion"],
+            config["optimizer"],
+            config["scheduler"],
+        )
+        train_loader, test_loader, epochs, n_evals = (
+            config["train_loader"],
+            config["test_loader"],
+            config["epochs"],
+            config["n_evals"],
+        )
+        device = config["device"]
+
+        total_train_correct = 0
+        total_test_correct = 0
+
+        total_train_data = len(train_loader.dataset)
+        total_test_data = len(test_loader.dataset)
+
+        train_losses = list()
+        test_losses = list()
+
+        for x, y in train_loader:
+            x, y = x.to(device), y.to(device)
+
+            logits = self.model(x)
+            loss = criterion(logits, y)
+            pred = logits.argmax(dim=-1)
+            total_train_correct += (pred == y).sum().item()
+
+        for x, y in test_loader:
+            x, y = x.to(device), y.to(device)
+
+            logits = self.model(x)
+            loss = criterion(logits, y)
+            pred = logits.argmax(dim=-1)
+            total_test_correct += (pred == y).sum().item()
+
+            test_losses.append(loss.item())
+
+        train_accuracy = total_train_correct / total_train_data
+        test_accuracy = total_test_correct / total_test_data
+
+        train_loss = torch.tensor(train_losses).mean().item()
+        test_loss = torch.tensor(test_losses).mean().item()
+
+        print(f'{"-" * 10}Training Set{"-" * 10}')
+        print(f"Loss: {train_loss}")
+        print(f"Accuracy: {train_accuracy}")
+        print(f'{"-" * 10}Testing Set{"-" * 10}')
+        print(f"Loss: {test_loss}")
+        print(f"Accuracy: {test_accuracy}")
